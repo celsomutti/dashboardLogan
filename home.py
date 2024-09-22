@@ -6,7 +6,7 @@ st.set_page_config(page_title="Dashboard",page_icon="./asserts/icon_Logan.png")
 col5, col6 = st.columns(2)
 
 with col5: 
-    st.image("./asserts/logo_Logan_188_138.png")
+    st.image("logo_Logan_188_138.png")
 
 with col6: 
     st.write("# Dashboard")
@@ -16,7 +16,7 @@ btn = st.button("Clique aqui pra visualizar os dados")
 @st.cache_data
 def dataBuild():
     if "data" not in st.session_state:
-        df_data= pd.read_csv("./dataset/dados.csv", sep=";", index_col=False, dtype='unicode')
+        df_data= pd.read_csv("dados.csv", sep=";", index_col=False, dtype='unicode')
         st.session_state["data"] = df_data
         
 dataBuild()
