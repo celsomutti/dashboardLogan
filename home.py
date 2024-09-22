@@ -13,14 +13,11 @@ with col6:
 
 btn = st.button("Clique aqui pra visualizar os dados")
 
-@st.cache_data
-def dataBuild():
-    if "data" not in st.session_state:
-        df_data= pd.read_csv("dados.csv", sep=";", index_col=False, dtype='unicode')
-        st.session_state["data"] = df_data
-        
-dataBuild()
 
+if "data" not in st.session_state:
+    df_data= pd.read_csv("dados.csv", sep=";", index_col=False, dtype='unicode')
+    st.session_state["data"] = df_data
+        
 col1, col2, col3 = st.columns(3)
     
 def showGraphicPieEntregas(df_data):
@@ -52,8 +49,6 @@ def showGraphicBarPedidosEntregues(df_data):
     df_data['mes_ano'] = df_data['Data Entrega'].map(lambda x: x.month)
     
     df_data = df_data.groupby(['mes_ano']).count().reset_index()
-
-    #df_data.groupby(pd.Grouper(key="Data Entrega", freq="M")).count()
     st.write('Pedidos Processados')
     st.write(' ')
     st.bar_chart(data=df_data, x='mes_ano', y='quantidade_itens', x_label='Mês', y_label='Quantidade', stack=False)
